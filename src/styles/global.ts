@@ -1,7 +1,6 @@
-'use client'
+"use client";
 
 import { createGlobalStyle } from "styled-components";
-
 
 const GlobalStyles = createGlobalStyle`
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;400;500;600&display=swap');
@@ -20,7 +19,9 @@ body{
 
 button{
     cursor: pointer;
+    background-color: transparent;
+    border: none;
 }
-`
+`;
 
 export default GlobalStyles;
