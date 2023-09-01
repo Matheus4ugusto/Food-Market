@@ -23,6 +23,37 @@ export const Header = styled.header`
 
 export const HeaderCenter = styled.section`
   display: flex;
-  padding: 1rem 10%;
+  align-items: center;
   justify-content: space-between;
+  padding: 1rem 10%;
+
+  div {
+    display: flex;
+    width: 60%;
+  }
+
+  div button {
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+  }
+
+  div input {
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+  }
+`;
+
+export const Nav = styled.nav`
+  display: flex;
+
+  button {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  button svg {
+    width: 32px;
+    height: 32px;
+  }
 `;
