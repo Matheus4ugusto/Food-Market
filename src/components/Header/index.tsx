@@ -2,7 +2,7 @@
 
 import { Button } from "../Button";
 import IconButton from "../IconButton";
-import { Input } from "../Input";
+import Input from "../Input";
 import { StyleLink } from "../Link";
 import * as S from "./header.style";
 import { AiOutlineSearch } from "react-icons/ai";

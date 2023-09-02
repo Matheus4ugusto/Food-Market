@@ -1,5 +1,5 @@
 import Header from "@/components/Header";
-import Providers from "../providers"
+import Providers from "../../providers";
 import GlobalStyles from "@/styles/global";
 
 export const metadata = {
@@ -16,11 +16,11 @@ export default function RootLayout({
     <html lang="pt-br">
       <body>
         <Providers>
-          <GlobalStyles/>
-        <Header/>
-        {children}
+          <GlobalStyles />
+          <Header />
+          {children}
         </Providers>
-        </body>
+      </body>
     </html>
   );
 }
