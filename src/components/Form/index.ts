@@ -10,4 +10,10 @@ export const Form = styled.form`
     flex-direction: column;
     gap: 1rem;
     padding: 1rem;
+    border-radius: 12px;
+
+    h2{
+        text-align: center;
+        color: ${({theme}) => theme.colors.gray.dark}
+    }
 `

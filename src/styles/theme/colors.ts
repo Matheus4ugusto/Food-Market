@@ -8,10 +8,11 @@ export const colors = {
       
       // Tons de Cinza
       gray: {
-        dark: "#333333",
-        medium: "#666666",
-        light: "#999999",
-        extraLight: "#CCCCCC",
+        100: "#f4f4f4",
+        200: "#dfdfdf",
+        300: "#c0c0c0",
+        400: "#a0a0a0",
+        500: "#808080",
       },
   
       // Cores de Feedback
