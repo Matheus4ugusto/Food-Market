@@ -5,10 +5,11 @@ import theme from "@/styles/theme";
 import { CacheProvider } from "@chakra-ui/next-js";
 import { ChakraProvider } from "@chakra-ui/react";
 import AuthContextProvider from "@/contexts/AuthContext";
+import { customTheme } from "@/styles/chackraTheme";
 
 const Providers = ({ children }: { children: React.ReactNode }) => (
   <CacheProvider>
-    <ChakraProvider>
+    <ChakraProvider theme={customTheme}>
       <AuthContextProvider>
         <ThemeProvider theme={theme}>{children}</ThemeProvider>
       </AuthContextProvider>
