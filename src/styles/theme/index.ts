@@ -1,9 +1,9 @@
-import { colors } from './colors';
-import { typography } from './typography';
+import { colors } from "./colors";
+import { typography } from "./typography";
 
 const theme = {
-    colors: colors,
-    typography,
+  colors: colors,
+  typography,
 };
 
-export default theme
+export default theme;

@@ -2,6 +2,7 @@ import { Box, Flex, Heading, Icon, Image, Text } from "@chakra-ui/react";
 import Link from "next/link";
 import React from "react";
 import { FaStar } from "react-icons/fa";
+import StarRating from "../StarRating";
 
 export interface iStoreCardProps {
   id: number;
@@ -24,11 +25,12 @@ const StoreCard: React.FC<iStoreCardProps> = ({
   tempo,
   taxaEntrega,
   path,
+  id,
 }) => {
   return (
     <Flex
       as={Link}
-      href={path}
+      href={`loja/${id}`}
       p="1rem"
       bg="white"
       borderRadius="md"
@@ -40,13 +42,15 @@ const StoreCard: React.FC<iStoreCardProps> = ({
       transition="all .3s linear"
     >
       <Flex gap={4} align="center" justify="space-between">
-        <Image src={image_logo} alt={"Logo da loja" + nome} borderRadius="full" />
+        <Image
+          src={image_logo}
+          alt={"Logo da loja" + nome}
+          borderRadius="full"
+        />
         <Flex flexDir="column" gap={3}>
           <Heading fontSize="1rem">{nome}</Heading>
           <Flex gap={2} fontSize="0.9rem" color="blackAlpha.700">
-            <Box color="yellow.500">
-              <Icon as={FaStar} /> {nota}
-            </Box>
+            <StarRating nota={nota} />
             <span>•</span>
             <Text>{categoria}</Text>
             <span>•</span>

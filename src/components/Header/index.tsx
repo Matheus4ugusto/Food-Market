@@ -1,10 +1,8 @@
 "use client";
 
 import { Button } from "../Button";
-import Input from "../Input";
 import { StyleLink } from "../Link";
 import * as S from "./header.style";
-import { AiOutlineSearch } from "react-icons/ai";
 import { BiUserCircle, BiSolidCartAlt, BiLogOutCircle } from "react-icons/bi";
 import {
   Menu,

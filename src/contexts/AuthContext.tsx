@@ -34,7 +34,7 @@ const AuthContextProvider = ({ children }: { children: ReactNode }) => {
       localStorage.setItem("user", JSON.stringify(response));
       setIsLoged(true);
       setTimeout(() => push("/"), 4000);
-      Notify("success", "Login Conlcuido!");
+      Notify("success", "Login Concluido!");
     });
   };
 
@@ -45,12 +45,12 @@ const AuthContextProvider = ({ children }: { children: ReactNode }) => {
     }
   }, []);
 
-  const logOut = () =>{
+  const logOut = () => {
     setUser({} as iUser);
     setIsLoged(false);
     localStorage.setItem("isLoged", "false");
-    localStorage.setItem("user", "{}")
-  }
+    localStorage.setItem("user", "{}");
+  };
 
   const signUp = (values: iSignUp) => {};
 
