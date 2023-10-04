@@ -2,6 +2,7 @@
 
 import Providers from "@/app/providers";
 import Footer from "@/components/Footer";
+import Header from "@/components/Header";
 
 export const metadata = {
   title: "Next.js",
@@ -17,6 +18,7 @@ export default function RootLayout({
     <html lang="pt-br">
         <body>
       <Providers>
+        <Header/>
           {children}
           <Footer/>
       </Providers>

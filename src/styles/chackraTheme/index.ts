@@ -9,8 +9,8 @@ export const customTheme = extendTheme({
       400: "#BD4A00",
     },
     green: {
-      100: "#0D8400",
-      200: "#0FA200",
+      100: "#12C300",
+      200: "#0D8400",
       300: "#096300",
     },
   },

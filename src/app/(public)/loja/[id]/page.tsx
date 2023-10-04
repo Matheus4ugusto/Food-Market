@@ -18,6 +18,7 @@ import ProductCard from "@/components/ProductCard";
 
 const products = [
   {
+    id: 1,
     nome: "mequi mil",
     image: "https://placehold.co/398x157",
     preco: 15.78,
@@ -25,6 +26,7 @@ const products = [
       "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Explicabo odit fugiat assumenda aspernatur, distinctio dicta beatae, repellendus quam illo porro earum repellat dolore, pariatur laboriosam deserunt nihil quaerat natus officia.Lorem ipsum dolor sit, amet consectetur adipisicing elit. Explicabo odit fugiat assumenda aspernatur, distinctio dicta beatae, repellendus quam illo porro earum repellat dolore, pariatur laboriosam deserunt nihil quaerat natus officia.",
   },
   {
+    id: 2,
     nome: "mequi mil",
     image: "https://placehold.co/398x157",
     preco: 15.78,
@@ -32,6 +34,7 @@ const products = [
       "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Explicabo odit fugiat assumenda aspernatur, distinctio dicta beatae, repellendus quam illo porro earum repellat dolore, pariatur laboriosam deserunt nihil quaerat natus officia.Lorem ipsum dolor sit, amet consectetur adipisicing elit. Explicabo odit fugiat assumenda aspernatur, distinctio dicta beatae, repellendus quam illo porro earum repellat dolore, pariatur laboriosam deserunt nihil quaerat natus officia.",
   },
   {
+    id: 3,
     nome: "mequi mil",
     image: "https://placehold.co/398x157",
     preco: 15.78,
@@ -65,7 +68,14 @@ export default function Loja({ params: { id } }: iLojaProps) {
   );
 
   return (
-    <Flex bg="gray.50" direction="column" align="center" mt="2" minH="100vh" p={{base: "0 5%", lg: "0 17%"}}>
+    <Flex
+      bg="gray.50"
+      direction="column"
+      align="center"
+      mt="2"
+      minH="100vh"
+      p={{ base: "0 5%", lg: "0 17%" }}
+    >
       <Flex as="header" flexDir="column">
         <Image
           src="https://placehold.co/1200x250"

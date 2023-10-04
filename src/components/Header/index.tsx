@@ -13,15 +13,20 @@ import {
   IconButton as icoChakra,
   Heading,
   Text,
+  useDisclosure,
 } from "@chakra-ui/react";
 import Link from "next/link";
 import { useAuth } from "@/contexts/AuthContext";
+import Cart from "../Cart";
 
 const Header: React.FC = () => {
   const { isLoged, user, logOut } = useAuth();
+  const { isOpen, onClose, onOpen } = useDisclosure();
+
   return (
     <>
       <S.Header>
+        <Cart isOpen={isOpen} onClose={onClose} />
         <S.HeaderTop>
           <p>Welcome to Food Market</p>
           <div className="auth_nav">
@@ -68,7 +73,7 @@ const Header: React.FC = () => {
                 )}
               </MenuList>
             </Menu>
-            <Button variant="unstyled">
+            <Button variant="unstyled" onClick={onOpen}>
               <BiSolidCartAlt />
               Carrinho
             </Button>

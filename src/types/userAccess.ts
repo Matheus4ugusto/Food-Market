@@ -1,3 +1,5 @@
+import { iStoreCardProps } from "@/components/StoreCard";
+
 export interface iSignIn {
   email: string;
   senha: string;

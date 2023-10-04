@@ -10,7 +10,7 @@ const Footer: React.FC = () => (
     align="center"
     borderTop="solid 1px rgba(0,0,0,0.50)"
     mt="3rem"
-    flexDir={{base: "column", md: "row"}}
+    flexDir={{ base: "column", md: "row" }}
   >
     <Flex direction="column">
       <Heading fontSize="2xl">
