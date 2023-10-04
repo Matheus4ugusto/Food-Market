@@ -1,10 +1,8 @@
 "use client";
 
 import { Button } from "../Button";
-import Input from "../Input";
 import { StyleLink } from "../Link";
 import * as S from "./header.style";
-import { AiOutlineSearch } from "react-icons/ai";
 import { BiUserCircle, BiSolidCartAlt, BiLogOutCircle } from "react-icons/bi";
 import {
   Menu,
@@ -13,9 +11,10 @@ import {
   MenuItem,
   MenuList,
   IconButton as icoChakra,
+  Heading,
+  Text,
 } from "@chakra-ui/react";
 import Link from "next/link";
-import IconButton from "../IconButton";
 import { useAuth } from "@/contexts/AuthContext";
 
 const Header: React.FC = () => {
@@ -37,11 +36,12 @@ const Header: React.FC = () => {
           </div>
         </S.HeaderTop>
         <S.HeaderCenter>
-          <h1>Food Market</h1>
-          <div className="input_box">
-            <Input placeholder="Busque por..."></Input>
-            <IconButton aria-label="Search" icon={AiOutlineSearch} />
-          </div>
+          <Heading fontSize="2xl">
+            Food{" "}
+            <Text as="span" color="orange.100">
+              Market
+            </Text>
+          </Heading>
 
           <S.Nav>
             <Menu>
