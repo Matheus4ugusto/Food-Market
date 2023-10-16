@@ -1,6 +1,8 @@
+"use client"
+
+import Providers from "@/app/providers";
+import Footer from "@/components/Footer";
 import Header from "@/components/Header";
-import Providers from "../providers"
-import GlobalStyles from "@/styles/global";
 
 export const metadata = {
   title: "Next.js",
@@ -14,13 +16,13 @@ export default function RootLayout({
 }) {
   return (
     <html lang="pt-br">
-      <body>
-        <Providers>
-          <GlobalStyles/>
+        <body>
+      <Providers>
         <Header/>
-        {children}
-        </Providers>
-        </body>
+          {children}
+          <Footer/>
+      </Providers>
+          </body>
     </html>
   );
 }

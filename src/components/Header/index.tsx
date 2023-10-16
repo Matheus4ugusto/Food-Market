@@ -1,38 +1,79 @@
 "use client";
 
 import { Button } from "../Button";
-import IconButton from "../IconButton";
-import { Input } from "../Input";
 import { StyleLink } from "../Link";
 import * as S from "./header.style";
-import { AiOutlineSearch } from "react-icons/ai";
-import { BiUserCircle, BiSolidCartAlt } from "react-icons/bi";
+import { BiUserCircle, BiSolidCartAlt, BiLogOutCircle } from "react-icons/bi";
+import {
+  Menu,
+  MenuButton,
+  Button as ChakraButton,
+  MenuItem,
+  MenuList,
+  IconButton as icoChakra,
+  Heading,
+  Text,
+  useDisclosure,
+} from "@chakra-ui/react";
+import Link from "next/link";
+import { useAuth } from "@/contexts/AuthContext";
+import Cart from "../Cart";
 
 const Header: React.FC = () => {
+  const { isLoged, user, logOut } = useAuth();
+  const { isOpen, onClose, onOpen } = useDisclosure();
+
   return (
     <>
       <S.Header>
+        <Cart isOpen={isOpen} onClose={onClose} />
         <S.HeaderTop>
-          <p>Welcome to Eco Market</p>
-          <div>
-            <StyleLink href="/login">Login</StyleLink>
-            <span />
-            <StyleLink href="/register">Cadastre-se</StyleLink>
+          <p>Welcome to Food Market</p>
+          <div className="auth_nav">
+            {!isLoged ? (
+              <>
+                <StyleLink href="/login">Login</StyleLink>
+                <StyleLink href="/register">Cadastre-se</StyleLink>
+              </>
+            ) : (
+              <p>Olá {user?.nome}</p>
+            )}
           </div>
         </S.HeaderTop>
         <S.HeaderCenter>
-          <h1>Eco Market</h1>
-          <div>
-            <Input placeholder="Busque por..."></Input>
-            <IconButton icon={AiOutlineSearch} />
-          </div>
+          <Heading fontSize="2xl">
+            Food{" "}
+            <Text as="span" color="orange.100">
+              Market
+            </Text>
+          </Heading>
 
           <S.Nav>
-            <Button variant="unstyled">
-              <BiUserCircle />
-              Perfil
-            </Button>
-            <Button variant="unstyled">
+            <Menu>
+              <MenuButton as={icoChakra} icon={<BiUserCircle />}></MenuButton>
+              <MenuList>
+                {isLoged ? (
+                  <>
+                    <MenuItem as={Link} href="/perfil">
+                      Perfil
+                    </MenuItem>
+                    <MenuItem
+                      as={ChakraButton}
+                      leftIcon={<BiLogOutCircle />}
+                      onClick={logOut}
+                    >
+                      {" "}
+                      Sair
+                    </MenuItem>
+                  </>
+                ) : (
+                  <MenuItem as={Link} href="/register">
+                    Criar Conta
+                  </MenuItem>
+                )}
+              </MenuList>
+            </Menu>
+            <Button variant="unstyled" onClick={onOpen}>
               <BiSolidCartAlt />
               Carrinho
             </Button>
