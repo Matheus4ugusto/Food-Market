@@ -1,5 +1,3 @@
-import { iStoreCardProps } from "@/components/StoreCard";
-
 export interface iSignIn {
   email: string;
   senha: string;
@@ -16,4 +14,15 @@ export interface iUser {
   id: number;
   nome: string;
   email: string;
+}
+
+export interface iSignUpData {
+  name: string;
+  email: string;
+  password: string;
+}
+
+export interface iSignInData {
+  email: string;
+  password: string;
 }

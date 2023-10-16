@@ -1,7 +1,10 @@
 import * as yup from "yup";
 
 export const LoginValidation = yup.object().shape({
-  email: yup.string().email("Formato de email inválido!").required("Email é obrigatório"),
+  email: yup
+    .string()
+    .email("Formato de email inválido!")
+    .required("Email é obrigatório"),
   senha: yup.string().required("A senha é obrigatótia!"),
 });
 
@@ -22,5 +25,5 @@ export const registerValidation = yup.object().shape({
   confirmacaoSenha: yup
     .string()
     .required()
-    .oneOf([yup.ref("password")], "As senhas devem ser iguais"),
+    .oneOf([yup.ref("senha")], "As senhas devem ser iguais"),
 });

@@ -1,7 +1,9 @@
 import { Notify } from "@/components/Notify";
+import { api } from "@/services/api";
 import { login } from "@/services/login.service";
+import { register } from "@/services/register.service";
 import { iAuthContext } from "@/types/contexts";
-import { iSignIn, iSignUp, iUser } from "@/types/userAccess";
+import { iSignInData, iSignUpData, iUser } from "@/types/userAccess";
 import { useRouter } from "next/navigation";
 import {
   createContext,
@@ -22,20 +24,19 @@ const AuthContextProvider = ({ children }: { children: ReactNode }) => {
     setIsLoged(JSON.parse(localStorage.getItem("isLoged") as string));
   }, []);
 
-  const signIn = (values: iSignIn) => {
-    return new Promise((resolve) => {
-      resolve(true);
-
-      localStorage.setItem("isLoged", "true");
-
-      const response = login(values);
-
-      setUser(response);
-      localStorage.setItem("user", JSON.stringify(response));
+  const signIn = async (values: iSignInData) => {
+    try {
+      const data = await login(values);
       setIsLoged(true);
-      setTimeout(() => push("/"), 4000);
-      Notify("success", "Login Concluido!");
-    });
+      localStorage.setItem("isLoged", "true");
+      localStorage.setItem("@token", data.accesToken);
+      api.defaults.headers.common.Authorization = `Bearer ${data.accesToken}`;
+      setUser(data.user);
+      push("/");
+      Notify("success", "Login concluído");
+    } catch (error) {
+      Notify("success", "Oops, algo deu errado!");
+    }
   };
 
   useEffect(() => {
@@ -52,10 +53,19 @@ const AuthContextProvider = ({ children }: { children: ReactNode }) => {
     localStorage.setItem("user", "{}");
   };
 
-  const signUp = (values: iSignUp) => {};
+  const signUp = async (values: iSignUpData) => {
+    try {
+      const data = await register(values);
+      console.log(data);
+      Notify("success", "Cadastro concluído, faça o login!");
+      push("/login");
+    } catch (error: any) {
+      Notify("error", error.response.data);
+    }
+  };
 
   return (
-    <AuthContext.Provider value={{ signIn, user, isLoged, logOut }}>
+    <AuthContext.Provider value={{ signIn, user, isLoged, logOut, signUp }}>
       {children}
     </AuthContext.Provider>
   );

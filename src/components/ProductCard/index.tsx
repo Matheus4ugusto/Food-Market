@@ -4,6 +4,7 @@ import {
   CardBody,
   Heading,
   Image,
+  ResponsiveValue,
   Stack,
   StyleProps,
   Text,
@@ -16,15 +17,16 @@ export interface iProductCardProps {
   nome: string;
   preco: number;
   descricao: string;
-  image: string;
-  direction?: StyleProps["flexDir"];
+  imagem: string;
+  direction: "column" | "row";
+  loja_id: number;
 }
 
 export const ProductCard: React.FC<iProductCardProps> = ({
   nome,
   preco,
   descricao,
-  image,
+  imagem,
   direction,
   id,
 }) => {
@@ -32,13 +34,17 @@ export const ProductCard: React.FC<iProductCardProps> = ({
 
   return (
     <>
-      <ProductModal isOpen={isOpen} OnClose={onClose} id={id} />
+      <ProductModal
+        isOpen={isOpen}
+        OnClose={onClose}
+        product={{ nome, preco, descricao, imagem, id, loja_id: 0 }}
+      />
       <Card
         maxW={direction == "row" ? "100%" : "sm"}
         _hover={{ transform: "scale(1.01)" }}
         transition="all .3s"
         as="li"
-        direction={direction}
+        direction={{ base: "column", lg: direction}}
         w="100%"
         cursor="pointer"
         onClick={onOpen}
@@ -46,7 +52,7 @@ export const ProductCard: React.FC<iProductCardProps> = ({
         {direction === "row" && (
           <Image
             objectFit="cover"
-            src={image}
+            src={imagem}
             alt={`Imagem do produto: ${nome}`}
             title={nome}
           />
@@ -54,7 +60,7 @@ export const ProductCard: React.FC<iProductCardProps> = ({
         <CardBody>
           {direction !== "row" && (
             <Image
-              src={image}
+              src={imagem}
               alt={`Imagem do produto: ${nome}`}
               title={nome}
             />

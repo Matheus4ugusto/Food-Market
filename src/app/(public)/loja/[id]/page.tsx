@@ -13,35 +13,10 @@ import {
 } from "@chakra-ui/react";
 import { AiFillDollarCircle } from "react-icons/ai";
 import { moneyFormat } from "@/utils/moneyFormat";
-import { use } from "react";
-import ProductCard from "@/components/ProductCard";
-
-const products = [
-  {
-    id: 1,
-    nome: "mequi mil",
-    image: "https://placehold.co/398x157",
-    preco: 15.78,
-    descricao:
-      "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Explicabo odit fugiat assumenda aspernatur, distinctio dicta beatae, repellendus quam illo porro earum repellat dolore, pariatur laboriosam deserunt nihil quaerat natus officia.Lorem ipsum dolor sit, amet consectetur adipisicing elit. Explicabo odit fugiat assumenda aspernatur, distinctio dicta beatae, repellendus quam illo porro earum repellat dolore, pariatur laboriosam deserunt nihil quaerat natus officia.",
-  },
-  {
-    id: 2,
-    nome: "mequi mil",
-    image: "https://placehold.co/398x157",
-    preco: 15.78,
-    descricao:
-      "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Explicabo odit fugiat assumenda aspernatur, distinctio dicta beatae, repellendus quam illo porro earum repellat dolore, pariatur laboriosam deserunt nihil quaerat natus officia.Lorem ipsum dolor sit, amet consectetur adipisicing elit. Explicabo odit fugiat assumenda aspernatur, distinctio dicta beatae, repellendus quam illo porro earum repellat dolore, pariatur laboriosam deserunt nihil quaerat natus officia.",
-  },
-  {
-    id: 3,
-    nome: "mequi mil",
-    image: "https://placehold.co/398x157",
-    preco: 15.78,
-    descricao:
-      "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Explicabo odit fugiat assumenda aspernatur, distinctio dicta beatae, repellendus quam illo porro earum repellat dolore, pariatur laboriosam deserunt nihil quaerat natus officia.Lorem ipsum dolor sit, amet consectetur adipisicing elit. Explicabo odit fugiat assumenda aspernatur, distinctio dicta beatae, repellendus quam illo porro earum repellat dolore, pariatur laboriosam deserunt nihil quaerat natus officia.",
-  },
-];
+import { use, useEffect, useState } from "react";
+import ProductCard, { iProductCardProps } from "@/components/ProductCard";
+import { getProducts, getStoreById } from "@/services/store.service";
+import { iStoreCardProps } from "@/components/StoreCard";
 
 export interface iLojaProps {
   params: {
@@ -50,22 +25,22 @@ export interface iLojaProps {
 }
 
 export default function Loja({ params: { id } }: iLojaProps) {
-  const dados: any = use(
-    new Promise((resolve) => {
-      setTimeout(
-        () =>
-          resolve({
-            nome: "Emici Donáids",
-            nota: 4.5,
-            categoria: "lanches",
-            tempo: "30-40 min",
-            distancia: "1.2km",
-            taxaEntrega: 2.25,
-          }),
-        5000
-      );
-    })
-  );
+  const [products, setProducts] = useState([]);
+  const [store, setStore] = useState<iStoreCardProps>({} as iStoreCardProps);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const data = await getProducts(Number(id));
+        const storeData = await getStoreById(Number(id));
+        setProducts(data);
+        setStore(storeData);
+      } catch (error) {
+        console.error("Um erro estranho aconteceu", error);
+      }
+    };
+    fetchData();
+  }, [id]);
 
   return (
     <Flex
@@ -79,18 +54,23 @@ export default function Loja({ params: { id } }: iLojaProps) {
       <Flex as="header" flexDir="column">
         <Image
           src="https://placehold.co/1200x250"
-          alt={"Imagem de capa da empresa:" + dados.nome}
+          alt={"Imagem de capa da empresa:" + store.nome}
           borderRadius="10px"
         />
       </Flex>
-      <Flex align="center" gap="1rem" mt="2rem">
+      <Flex
+        align="center"
+        gap="1rem"
+        mt="2rem"
+        flexDir={{ base: "column", lg: "row" }}
+      >
         <Image
           src="https://placehold.co/100"
-          alt={"Logo da empresa:" + dados.nome}
+          alt={"Logo da empresa:" + store.nome}
           borderRadius="full"
         />
-        <Heading fontSize="1.5rem">{dados.nome}</Heading>
-        <StarRating nota={dados.nota} />
+        <Heading fontSize="1.5rem">{store.nome}</Heading>
+        <StarRating nota={store.nota} />
         <Flex ml="auto" gap={5}>
           <Button variant="unstyled" colorScheme="red">
             Ver Mais
@@ -111,7 +91,7 @@ export default function Loja({ params: { id } }: iLojaProps) {
             wrap="wrap"
             mt={5}
           >
-            {products?.map((product, index) => (
+            {products?.map((product: iProductCardProps, index) => (
               <ProductCard {...product} key={index} />
             ))}
           </Flex>
@@ -120,8 +100,8 @@ export default function Loja({ params: { id } }: iLojaProps) {
           <Heading fontSize="lg">Produtos</Heading>
           <Divider bg="gray.500" />
           <Flex direction="column" gap={4} wrap="wrap" mt={2}>
-            {products?.map((product, index) => (
-              <ProductCard direction="row" {...product} key={index} />
+            {products?.map((product: iProductCardProps, index) => (
+              <ProductCard {...{...product, direction: "row"}} key={index} />
             ))}
           </Flex>
         </Box>

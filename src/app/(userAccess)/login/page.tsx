@@ -13,8 +13,7 @@ import Input from "@/components/Input";
 import { useAuth } from "@/contexts/AuthContext";
 
 export default function Login() {
-
-  const {signIn} = useAuth()
+  const { signIn } = useAuth();
 
   const {
     register,
@@ -24,8 +23,12 @@ export default function Login() {
     resolver: yupResolver(LoginValidation),
   });
 
+  const handleLogin = (values: iSignIn) => {
+    signIn({ email: values.email, password: values.senha });
+  };
+
   return (
-    <Form onSubmit={handleSubmit(signIn)}>
+    <Form onSubmit={handleSubmit(handleLogin)}>
       <h2>Olá, bem vindo de volta!</h2>
       <Input
         variant="float"
