@@ -5,6 +5,7 @@ import { Divider } from "@/components/Divider";
 import { Form } from "@/components/Form";
 import Input from "@/components/Input";
 import { StyleLink } from "@/components/Link";
+import { useAuth } from "@/contexts/AuthContext";
 import { iSignUp } from "@/types/userAccess";
 import { registerValidation } from "@/validations/userAccess.validation";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -14,6 +15,7 @@ import { useForm } from "react-hook-form";
 
 export default function Login() {
   const router = useRouter();
+  const { signUp } = useAuth();
 
   const {
     register,
@@ -23,11 +25,13 @@ export default function Login() {
     resolver: yupResolver(registerValidation),
   });
 
-  const signUp = (values: iSignUp) => console.log(values);
+  const handleSignUp = (values: iSignUp) => {
+    signUp({email: values.email, name: values.nome, password: values.senha})
+  }
   
 
   return (
-    <Form onSubmit={handleSubmit(signUp)}>
+    <Form onSubmit={handleSubmit(handleSignUp)}>
       <h2>Seja bem-vindo ao Food Marker</h2>
       <Input
         variant="float"

@@ -1,5 +1,6 @@
 import { useCart } from "@/contexts/CartContext";
-import { getProductById } from "@/services/products.service";
+import { getProductById } from "@/services/store.service";
+import { iProduct } from "@/types/stores";
 import { moneyFormat } from "@/utils/moneyFormat";
 import {
   Flex,
@@ -22,24 +23,25 @@ import {
 import { useState } from "react";
 
 import { AiOutlinePlus, AiOutlineMinus } from "react-icons/ai";
-
 export interface iProductModalProps {
   isOpen: boolean;
   OnClose: () => void;
-  id: number;
+  product: iProduct;
 }
 
 export const ProductModal: React.FC<iProductModalProps> = ({
   isOpen,
   OnClose,
-  id,
+  product,
 }) => {
   const [amount, setAmount] = useState(1);
   const { addToCart } = useCart();
-
   const handeSubtraction = () => amount > 0 && setAmount(amount - 1);
+  const handleAddToCart = () => {
+    addToCart({ ...product, amount: amount });
+    OnClose();
+  };
 
-  const product = getProductById(Number(id));
   return (
     <Modal
       isOpen={isOpen}
@@ -49,19 +51,19 @@ export const ProductModal: React.FC<iProductModalProps> = ({
       <ModalOverlay />
       <ModalContent>
         <ModalHeader>
-          <Text>{product.nome}</Text>
+          <Text>{product?.nome}</Text>
           <ModalCloseButton />
         </ModalHeader>
         <ModalBody>
           <Flex grow={1} gap="1rem" flexDir={{ base: "column", lg: "row" }}>
             <Image
-              src={product.imagem}
-              alt={"Imagem do produto: " + product.nome}
+              src={product?.imagem}
+              alt={"Imagem do produto: " + product?.nome}
             />
             <Stack spacing="1rem">
-              <Text>{product.descricao}</Text>
+              <Text>{product?.descricao}</Text>
               <Text fontSize="xl" color="green">
-                {moneyFormat(product.preco)}
+                {moneyFormat(product?.preco)}
               </Text>
               <InputGroup w="fit-content">
                 <InputLeftElement>
@@ -87,7 +89,7 @@ export const ProductModal: React.FC<iProductModalProps> = ({
               <Button
                 bgColor="orange.100"
                 color="white"
-                onClick={() => addToCart({ ...product, amount: amount })}
+                onClick={handleAddToCart}
               >
                 Adicionar ao carrinho
               </Button>

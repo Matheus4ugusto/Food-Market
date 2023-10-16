@@ -1,9 +1,8 @@
-import { iSignIn } from "@/types/userAccess";
+import { iSignIn, iSignInData } from "@/types/userAccess";
+import { api } from "./api";
 
-export const login = (values: iSignIn) => {
-  return {
-    id: 1,
-    nome: "Filipe",
-    email: values.email,
-  };
+export const login = async (values: iSignInData) => {
+  const { data } = await api.post("login", values);
+
+  return data
 };

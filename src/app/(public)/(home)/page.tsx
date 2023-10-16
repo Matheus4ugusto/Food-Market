@@ -2,10 +2,24 @@
 
 import { Flex, Heading, Text, Box, Stack } from "@chakra-ui/react";
 import SearchForm from "@/components/SearchForm";
-import StoreCard from "@/components/StoreCard";
+import StoreCard, { iStoreCardProps } from "@/components/StoreCard";
 import BannerCard from "@/components/BannerCards";
+import { useEffect, useState } from "react";
+import { getStores } from "@/services/store.service";
 
 export default function Home() {
+  const [stores, setStores] = useState([]);
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const data = await getStores();
+        setStores(data);
+      } catch (error) {
+        console.error("Um erro desconhecido aconteceu", error);
+      }
+    };
+    fetchData();
+  });
   return (
     <Flex
       mt="3rem"
@@ -51,50 +65,9 @@ export default function Home() {
           wrap="wrap"
           justify="space-between"
         >
-          <StoreCard
-            id={1}
-            nome="Emici Donaidis"
-            nota={4.5}
-            categoria="lanches"
-            distancia="1.2km"
-            tempo="30-40 min"
-            taxaEntrega={0}
-            image_logo="https://placehold.co/100"
-            path="/"
-          />
-          <StoreCard
-            id={2}
-            nome="Emici Donaidis"
-            nota={4.5}
-            categoria="lanches"
-            distancia="1.2km"
-            tempo="30-40 min"
-            taxaEntrega={0}
-            image_logo="https://placehold.co/100"
-            path="/"
-          />
-          <StoreCard
-            id={3}
-            nome="Emici Donaidis"
-            nota={4.5}
-            categoria="lanches"
-            distancia="1.2km"
-            tempo="30-40 min"
-            taxaEntrega={0}
-            image_logo="https://placehold.co/100"
-            path="/"
-          />
-          <StoreCard
-            id={4}
-            nome="Emici Donaidis"
-            nota={4.5}
-            categoria="lanches"
-            distancia="1.2km"
-            tempo="30-40 min"
-            taxaEntrega={0}
-            image_logo="https://placehold.co/100"
-            path="/"
-          />
+          {stores?.map((store: iStoreCardProps) => (
+            <StoreCard key={store.id} {...store} />
+          ))}
         </Stack>
       </Box>
     </Flex>
