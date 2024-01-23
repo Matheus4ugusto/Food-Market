@@ -29,8 +29,8 @@ const AuthContextProvider = ({ children }: { children: ReactNode }) => {
       const data = await login(values);
       setIsLoged(true);
       localStorage.setItem("isLoged", "true");
-      localStorage.setItem("@token", data.accesToken);
-      api.defaults.headers.common.Authorization = `Bearer ${data.accesToken}`;
+      localStorage.setItem("@token", data.token);
+      api.defaults.headers.common.Authorization = `Bearer ${data.token}`;
       setUser(data.user);
       push("/");
       Notify("success", "Login concluído");
